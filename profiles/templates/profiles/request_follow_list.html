@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    {% for request in user.profile.request_follows.all %}
+        <p>{{ request }}</p>
+        <a class="btn btn-primary" href="{% url 'accept_follow' request.pk %}">Accept</a>
+    {% endfor %}
+</div>
+
+{% endblock content %}

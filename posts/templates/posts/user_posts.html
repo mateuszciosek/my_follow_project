@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="row">
+    <div id="post_list" class="col-8 py-5 pr-5">
+        <div class="container text-center">
+            <h1 class="mb-5">Your posts</h1>
+            {% for post in posts %}
+            <a href="{% url 'post_detail' pk=post.pk %}">
+                <h1 class="text-center">{{ post.title }}</h1>
+            </a>
+            <p>Created on: {{ post.created_date|date:"D M Y" }}</p>
+            <p class="text-right">Comments: {{ post.comments.count }}</p>
+            {% endfor %}
+            <div class="py-5 d-flex justify-content-center paginataion-section">
+                {% if is_paginated %}
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    {% endif %} {% for i in paginator.page_range %} {% if page_obj.number == i %}
+                    <li class="page-item active disabled">
+                        <a class="page-link" href="#">{{ i }}
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endif %} {% endfor %} {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Next</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div> {% endblock content %}

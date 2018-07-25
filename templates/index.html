@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block register %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="d-none d-md-block col-6 align-item-center align-self-center" align="center">
+            <h1>Share Your Story!</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum consequuntur odit quasi vel dicta earum minima!
+                Quod harum quos incidunt, perspiciatis sit repellat provident, laboriosam illo eveniet quam illum? Dolorum.</p>
+        </div>
+        <div class="col-6 text-center">
+            <h2>Don't have an account yet?</h2>
+            <p>Sign up today!</p>
+            <form class="form" method="POST"> {% csrf_token %} {{ form.errors }}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="text" name="first_name" class="form-control" placeholder="first name"> {{ form.first_name.errors }} </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" name="last_name" class="form-control" placeholder="last name"> </div>
+                </div>
+                <input type="text" name="username" class="form-control mb-3" placeholder="username"> {{ form.username.errors }}
+                <input type="email" name="email" class="form-control mb-3" placeholder="account@example.com">
+                <input type="password" name="password1" class="form-control mb-3" placeholder="password">
+                <input type="password" name="password2" class="form-control mb-3" placeholder="repeat password">
+                <input type="submit" class="btn btn-primary mt-3 btn-block" value="Register"> </form>
+        </div>
+    </div>
+</div> {% endblock register %} {% block content %}
+<div class="container mt-5 text-center">
+    <h1>You see this becouse you're logged in!</h1>
+</div> {% endblock content %}

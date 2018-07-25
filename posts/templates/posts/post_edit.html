@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+    <h1 class="text-center my-3">Edit your post</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <textarea class="form-control" name="text" id="post_content" cols="30" rows="10"></textarea>
+        <button type="submit" class="btn btn-success mt-3">Apply Changes</button>
+    </form>
+</div>
+
+{% endblock content %}

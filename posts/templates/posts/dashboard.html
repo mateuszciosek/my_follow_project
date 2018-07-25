@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">  
+    <div id="post_list" class="col-8 py-5 pr-5">
+        <div class="container text-center">
+            <h1 class="mb-5">Your followers posts</h1>
+            {% for post in post_list %}
+                <a href="{% url 'post_detail' pk=post.pk %}"><h1 class="text-center">{{ post.title }}</h1></a>
+                <p>Created on: {{ post.created_date|date:"D M Y" }}</p>
+                <p class="text-right">Comments: {{ post.comments.count }}</p>
+            {% empty %}
+                <p>No posts created by your follows</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="user_list" class="col-4 py-5 text-center">
+        <div class="container ">
+            <h1 class="mb-5">Your follows</h1>
+            {% for user in follow_users %}
+                <a href="{% url 'profile_details' user.username %}"><p class='p-3'>{{ user.username }}</p></a>
+            {% empty %}
+                <p>You have no follows</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-3 align-self-center">
+                <img class="img-fluid rounded-circle w-75" src="https://djgn3cwvdf3zo.cloudfront.net/homepage/men-eyeglasses-dropdown-new.jpg" alt="profile picture">
+        </div>
+        <div class="col-9">
+            <div class="row">
+                <div class="col-6">
+                    <h3>First Name:</h3>
+                    <p class="text-"> {{ this_user.first_name }} </p>
+                    <h3>Last Name:</h3>
+                    <p> {{ this_user.last_name }} </p>
+                    <h3>Current location:</h3>
+                    <p> {{ this_user.profile.location }} </p>
+                </div>
+                <div class="col-6">
+                    <h3>About me:</h3>
+                    <p class="text-justify"> {{ this_user.profile.bio }} </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-right">
+        <a href="{% url 'user_post_list' this_user.pk %}" class="btn btn-primary">{{ this_user.username }}'s Posts</a>
+    </div>
+    {% if this_user == user %}
+    
+    {% else %}
+        {% if this_user.profile in user.profile.accepted_follows.all %}
+            <div class="text-left">
+                <a href="{% url 'unfollow' this_user.pk %}" class="btn btn-danger">Unfollow {{ this_user.username }}</a>
+            </div>
+        {% elif this_user.profile in user.profile.follows.all %}
+            <div class="text-left">
+                <a href="{% url 'cancel_request' this_user.pk %}" class="btn btn-warning">Cancel follow request</a>
+            </div>
+        {% else %}
+            <div class="text-left">
+                <a href="{% url 'add_follow' this_user.pk %}" class="btn btn-primary">Follow {{ this_user.username }}</a>
+            </div>
+    {% endif %}
+    
+    {% endif %}
+
+    
+</div>
+
+{% endblock content %}

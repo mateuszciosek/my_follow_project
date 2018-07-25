@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+    <h1 class="text-center">{{ post.title }}</h1>
+    <p class="text-muted text-center">{{ post.created_date }}</p>
+    <div class="post-text p-5">
+        {{ post.text|safe|linebreaks }}
+    </div>
+    {% if user == post.author %}
+    <div id="edit-buttons" class="text-right mb-3">
+        <a class="btn btn-sm btn-primary" href="{% url 'post_edit' pk=post.pk %}">
+            <i class="fa fa-cut"></i> Edit
+        </a>
+        <a class="btn btn-sm btn-primary" href="{% url 'post_remove' pk=post.pk %}">
+            <i class="fas fa-times-circle"></i> Remove
+        </a>
+    </div>
+    {% endif %}
+
+    <div id="comment-button">
+        <a class="btn btn-block btn-success mb-5" href="{% url 'add_comment_to_post' pk=post.pk %}">
+            <i class="fa fa-plus"></i> Add comment
+        </a>
+    </div>
+
+    {% for comment in post.comments.all %}
+    <div class="card w-75 mt-2 mb-2">
+        <div class="card-header">
+            <span>
+                <strong>Posted By:</strong> {{ comment.author }}</span>
+            <p class="text-muted">{{ comment.created_date }}</p>
+        </div>
+        <div class="card-body">
+            <p>{{ comment.text|safe|linebreaks }}</p>
+        </div>
+    </div>
+
+
+
+    {% empty %}
+    <h2>No Comments!</h2>
+    {% endfor %}
+
+</div>
+
+{% endblock content %}
